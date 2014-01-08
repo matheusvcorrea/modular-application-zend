@@ -1,0 +1,33 @@
+<div class="page-header">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="pull-left">
+				<h1>
+					<?php
+					// get the front controller instance
+					$front = Zend_Controller_Front::getInstance();
+					echo $front->getRequest()->getModuleName();
+					echo ' '.$front->getRequest()->getControllerName();
+					echo ' '.$front->getRequest()->getActionName();
+					?>	
+				</h1>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="pull-right">
+				<a class="btn btn-info" href="<?php echo $this->url(array('module'=>'admin','controller'=>'content_pages','action'=>'index'),null,true); ?>">Back</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<?php echo $this->navigation()->tabs()->render(Zend_Registry::get('tabs')); ?>	
+	<?php
+	$this->form->setAction($this->url());
+	$this->form->setOptions(array(
+		'class' => 'form-horizontal form-new-page',
+		'role'  => 'form'
+		));	
+	echo $this->form;
+	?>
+</div>

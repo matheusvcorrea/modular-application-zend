@@ -1,0 +1,11 @@
+<div class="auth-header-login">
+	<h1>Sign in</h1>
+</div>
+<?php
+$this->form->setAction($this->url());
+$this->form->setOptions(array(
+    'class' => 'form-horizontal form-signin',
+    'role'  => 'form'
+));
+echo $this->form;
+?>

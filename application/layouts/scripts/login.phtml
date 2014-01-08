@@ -1,0 +1,17 @@
+<?php echo $this->doctype(); ?>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+		<?php echo $this->headTitle('Login'); ?>
+	    <?php echo $this->headMeta(); ?>   
+	    <?php echo $this->headLink()->appendStylesheet($this->baseUrl('css/admin/styles.css')); ?>
+	    <?php echo $this->headScript()->appendFile($this->baseUrl('js/admin/main.js')); ?>
+	</head>
+	<body>
+		<div class="container">
+			<?php echo $this->layout()->content; ?>	
+		</div>
+	</body>
+</html>

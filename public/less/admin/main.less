@@ -1,0 +1,55 @@
+@import "../variables.less";
+
+/* Reset
+/*-------------------------------------------------*/
+body { padding-top: 70px; }
+footer{ margin-top: 40px; padding-top: 40px; border-top: solid 1px #eee; }
+
+/* Global Styles 
+/*-------------------------------------------------*/
+/* Form elements */
+select { width: auto !important; }
+label { font-weight: normal; }
+fieldset {}
+fieldset legend{ padding: 10px 15px; background-color: @gray-lighter; border: 1px solid @gray-lighter; border-left: 0; border-right: 0; }
+
+/* Form General */
+.form-wrapper{}
+.form-wrapper .section{ margin-bottom: 20px; border: solid 1px @gray-lighter; border-radius: 4px;}
+.form-wrapper .errors { color: @state-danger-text; list-style: none; }
+
+/* Grouped fields */
+#fieldset-buttons { text-align: center; }
+#fieldset-buttons .form-group { display: inline-block; }
+
+/* Form Singin */
+.form-signin { max-width: 330px; padding: 15px; margin: 0 auto; }
+.form-signin .form-signin-heading,
+.form-signin .checkbox { margin-bottom: 10px; }
+.form-signin .checkbox { font-weight: normal; }
+.form-signin .control-label { text-align: left; font-weight: bold; }
+.form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; 
+  text-align: left;
+}
+.form-signin .form-control:focus { z-index: 2; }
+.auth-header-login{ text-align: center; }
+
+/* Form New Page */
+.form-new-page { padding-top: 20px; }
+
+/* Content Elements
+/*-------------------------------------------------*/
+/* Form elements */
+.page-header { border-bottom: solid 3px @page-header-border-color; }
+.page-header h1{ margin: 0; }
+
+/* Summernote Editor Navigation
+/*-------------------------------------------------*/
+.dropdown-menu li { cursor: pointer; }

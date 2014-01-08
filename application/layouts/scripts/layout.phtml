@@ -1,0 +1,35 @@
+<?php echo $this->doctype(); ?>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+		<?php echo $this->headTitle(); ?>
+	    <?php echo $this->headMeta(); ?>   
+	    <?php echo $this->headLink(); ?>
+	    <?php echo $this->headScript(); ?>
+	</head>
+	<body>
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+				    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				      <span class="sr-only">Toggle navigation</span>
+				      <span class="icon-bar"></span>
+				      <span class="icon-bar"></span>
+				      <span class="icon-bar"></span>
+				    </button>
+				    <a class="navbar-brand" href="/">Brand</a>
+			  	</div>
+				<?php
+				/* Navigation Menu Itens */
+				$this->navigation()->menu()->setPartial('partials/horizontal.phtml');	
+				echo $this->navigation()->menu()->render(Zend_Registry::get('main'));
+				?>
+			</div>
+		</nav>
+		<div class="container">
+			<?php echo $this->layout()->content; ?>	
+		</div>
+	</body>
+</html>

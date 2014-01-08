@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <admin>
+    	<dashboard>
+			<label>Dashboard</label>
+			<uri>/</uri>
+			<module>admin</module>
+            <controller>dashboard</controller>
+            <action>index</action>
+			<!-- <img>logo.png</img> -->
+		</dashboard>
+		<content>
+			<label>Content</label>
+			<uri></uri>
+			<!-- <img>logo.png</img> -->
+			<pages>
+				<tittle>
+					<label>Elements</label>
+					<header>dropdown-header</header>
+					<uri></uri>
+				</tittle>
+				<pages_list>
+					<label>Pages</label>
+					<module>admin</module>
+		            <controller>content_pages</controller>
+		            <action>index</action>
+					<divider>divider</divider>
+				</pages_list>
+				<pages_add>
+					<label>Add Pages</label>
+		            <module>admin</module>
+		            <controller>content_pages</controller>
+		            <action>new</action>
+				</pages_add>
+			</pages>
+		</content>
+		<logout>
+			<label>Logout</label>
+			<module>admin</module>
+			<controller>auth</controller>
+			<action>logout</action>
+		</logout>
+	</admin>
+	<nav>
+		<dashboard>
+			<label>Dashboard</label>
+			<uri>/</uri>
+		</dashboard>
+	</nav>
+</config>

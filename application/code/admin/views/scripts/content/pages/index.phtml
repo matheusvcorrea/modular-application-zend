@@ -1,0 +1,46 @@
+<div class="page-header">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="pull-left">
+				<h1>
+					<?php
+					// get the front controller instance
+					$front = Zend_Controller_Front::getInstance();
+					echo $front->getRequest()->getModuleName();
+					echo ' '.$front->getRequest()->getControllerName();
+					echo ' '.$front->getRequest()->getActionName();
+					?>	
+				</h1>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="pull-right">
+				<a class="btn btn-primary" href="<?php echo $this->url(array('module'=>'admin','controller'=>'content_pages','action'=>'new'),null,true); ?>">New Page</a>			
+			</div>
+		</div>
+	</div>
+</div>
+<table class="table table-striped table-bordered">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>URL KEY</th>
+			<th>Status</th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+	<?php foreach ($this->rows as $page): ?>
+		<tr>
+			<td><?php echo $page->page_name; ?>
+			<td><?php echo $page->page_url;  ?></td>
+			<td><?php echo $page->page_status;  ?></td>
+			<td>
+				<a href="<?php echo $this->url(array('module'=>'admin','controller'=>'content_pages','action'=>'view','id'=>$page->id),null,true); ?>">View Page</a>
+				|
+				<a href="<?php echo $this->url(array('module'=>'admin','controller'=>'content_pages','action'=>'edit','id'=>$page->id),null,true); ?>">Edit</a>
+			</td>
+		</tr>
+	<?php endforeach ?>
+	</tbody>
+</table>
