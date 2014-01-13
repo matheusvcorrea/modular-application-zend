@@ -69,12 +69,16 @@ class Admin_Form_Content_Pages_New extends Zend_Form
             'class'       => 'form-control summernote',
             'placeholder' => 'Content',
             'required'    => true,
-            'decorators' => array(
+            'filters'     => array('HtmlEntities', 'StringTrim'),
+            'validators'  => array(
+                array('StringLength', false, array(0,65534))
+            ),
+            'decorators'  => array(
                 array('ViewHelper'),
                 array('Errors'),
                 array(
                     'data'  =>'HtmlTag',
-                    array('class'   => 'col-xs-9')
+                    array('class' => 'col-xs-9')
                 ),
                 array(
                     'Label',
@@ -174,7 +178,7 @@ class Admin_Form_Content_Pages_New extends Zend_Form
             'FormElements',
             array('HtmlTag', array('tag'=>'div','class'=>'buttons-group')),
         ));
-        $buttons->getDisplayGroup('buttons')->setDecorators(array(        
+        $buttons->getDisplayGroup('buttons')->setDecorators(array(
             'FormElements',
             'Fieldset',
             array('HtmlTag',array('tag'=>'div','class'=>'buttons-elements'))

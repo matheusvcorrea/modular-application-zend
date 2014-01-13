@@ -23,5 +23,6 @@
 </div>
 
 <h3><?php echo $this->content->page_name; ?></h3>
-
-<?php echo $this->content->page_content; ?>
+<?php
+echo html_entity_decode($this->content->page_content,ENT_QUOTES,$this->charset);
+?>

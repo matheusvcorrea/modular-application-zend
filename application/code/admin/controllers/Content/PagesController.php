@@ -4,6 +4,7 @@ class Admin_Content_PagesController extends Zend_Controller_Action
 {
 	public function init()
     {
+        $this->view->charset = 'ISO-8859-1';
     	/* Initialize action controller here */        
         if(!Zend_Auth::getInstance()->hasIdentity())
         {
@@ -54,6 +55,9 @@ class Admin_Content_PagesController extends Zend_Controller_Action
                 {
                     $form->setDescription('Error Save');
                     $form->populate($data);
+                    
+                    $post = $page->mergeValues($form->getValues());
+                    $this->view->content = $post;
                 } else {
                     //var_dump($page->mergeValues($form->getValues()));
                     $page->insert( $page->mergeValues($form->getValues()) );
@@ -110,6 +114,9 @@ class Admin_Content_PagesController extends Zend_Controller_Action
                 {
                     $form->setDescription('Error Save');
                     $form->populate($data);
+                    
+                    $post = $page->mergeValues($form->getValues());
+                    $this->view->content = $post;
                 } else {                    
                     $page->update($page->mergeValues($form->getValues()), "id = $id" );
                     $this->_redirect('admin/content_pages');
@@ -127,6 +134,7 @@ class Admin_Content_PagesController extends Zend_Controller_Action
         } else {
             $post = $page->find($id)->current();  
             $form->populate($post->toArray()); // populate method parameter has to be an array
+            $this->view->content = $post;
         }
     }
 

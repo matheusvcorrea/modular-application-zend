@@ -21,13 +21,24 @@
 	</div>
 </div>
 <div class="row">
-	<?php echo $this->navigation()->tabs()->render(Zend_Registry::get('tabs')); ?>	
+	<?php echo $this->navigation()->tabs()->render(Zend_Registry::get('tabs')); ?>
 	<?php
 	$this->form->setAction($this->url());
 	$this->form->setOptions(array(
 		'class' => 'form-horizontal form-new-page',
 		'role'  => 'form'
-		));	
+		));
 	echo $this->form;
 	?>
+	<script>
+	jQuery(document).ready(function($) {
+		<?php if(empty($this->content['page_content'])) : ?>
+		var content = '<?php echo html_entity_decode($this->content->page_content,ENT_QUOTES,$this->charset); ?>';
+		<?php else : ?>
+		var content = '<?php echo html_entity_decode($this->content['page_content'],ENT_QUOTES,$this->charset); ?>';
+		<?php endif; ?>
+		
+		$('.summernote').code(content);
+	});
+	</script>
 </div>

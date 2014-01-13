@@ -46,7 +46,7 @@ class Admin_Form_Auth_Login extends Zend_Form
             'placeholder' => 'Username',
             'required'    => true,
             'filters'     => array('StringTrim', 'StringToLower'),
-            'validators' => array(
+            'validators'  => array(
                 'Alpha',
                 array('StringLength', false, array(3, 20)),
             ),
