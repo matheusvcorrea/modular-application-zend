@@ -32,13 +32,14 @@
 	?>
 	<script>
 	jQuery(document).ready(function($) {
-		<?php if(empty($this->content['page_content'])) : ?>
-		var content = '<?php echo html_entity_decode($this->content->page_content,ENT_QUOTES,$this->charset); ?>';
-		<?php else : ?>
-		var content = '<?php echo html_entity_decode($this->content['page_content'],ENT_QUOTES,$this->charset); ?>';
-		<?php endif; ?>
-		
-		$('.summernote').code(content);
+		<?php
+		if(empty($this->content['page_content'])) :
+			$var = html_entity_decode($this->content->page_content,ENT_QUOTES,$this->charset);
+		else :
+			$var = html_entity_decode($this->content['page_content'],ENT_QUOTES,$this->charset);
+		endif;
+		?>		
+		$('.summernote').code("<?php echo preg_replace("/\r?\n/", "\\n", addslashes($var)); ?>");
 	});
 	</script>
 </div>

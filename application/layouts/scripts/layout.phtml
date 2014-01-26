@@ -22,9 +22,9 @@
 				    <a class="navbar-brand" href="/">Brand</a>
 			  	</div>
 				<?php
-				/* Navigation Menu Itens */
-				$this->navigation()->menu()->setPartial('partials/horizontal.phtml');	
-				echo $this->navigation()->menu()->render(Zend_Registry::get('main'));
+					/* Navigation Menu Itens */
+					$this->navigation()->menu()->setPartial('partials/nav-top.phtml');	
+					echo $this->navigation()->menu()->render(Zend_Registry::get('main'));
 				?>
 			</div>
 		</nav>

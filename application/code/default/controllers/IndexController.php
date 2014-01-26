@@ -11,8 +11,9 @@ class Default_IndexController extends Zend_Controller_Action
     public function indexAction()
     {
         // action body
+        $page = new Content_Model_Page();
+        $rows = $page->fetchAll();
+        $this->view->assign("rows", $rows);
     }
-
-
 }
 

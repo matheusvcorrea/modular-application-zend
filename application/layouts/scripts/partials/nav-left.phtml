@@ -1,0 +1,65 @@
+<?php
+function genMenu($container)
+{
+    $html ='';
+    foreach ($container as $page)
+    {
+        $href = $page->uri;
+        $target = '_self';
+        $dropdown = !empty($page->pages);
+     
+        // check for subpages
+        // if exists, insert a dropdown class and a data-toggle attribute
+        // if not exists, let the <li>-attribute and <a>-attribute empty
+        if (count($page->pages) > 0)
+        {
+            // li-element with subpages
+            echo '<li' . ($dropdown ? ' class="dropdown"' : '') . '>';
+            echo '<a href="' . ($dropdown ? '#' : $page->getHref()) . '"' . 'class="dropdown-toggle ' . $page->class . '" data-toggle="dropdown">';
+            
+            // Add Icon
+            if(isset($page->icon)) echo '<i class="' . $page->icon . '"></i>';
+            
+            echo $page->getLabel();
+            
+            if ($dropdown)
+            {
+                echo '<i class="fa fa-angle-down fa-lg pull-right"></i>';
+            }     
+            echo '</a>';
+        } else {            
+            // li-element without subpages
+            if($page->header)
+            {
+                echo '<li class="' . $page->header . '">';
+                echo $page->getLabel();
+            } else {
+                echo '<li>';                
+                echo '<a href="' . $page->getHref() . '" class="' . $page->class . '">';
+                
+                // Add Icon
+                if(isset($page->icon)) echo '<i class="' . $page->icon . '"></i>';
+
+                echo $page->getLabel();
+                echo '</a>'; 
+            }    
+        }
+        
+        // Add Divider
+        if(isset($page->divider))
+        {
+            echo '<li class="divider"></li>';
+        }
+
+        //Add Sub-itens
+        if (!empty($page->pages))
+        {
+            echo '<ul class="dropdown-menu">';;
+            genMenu($page->pages);
+            echo '</ul>';
+        }
+    }
+}
+echo'<ul class="nav nav-pills nav-stacked">';
+genMenu($this->container);
+echo'</ul>';

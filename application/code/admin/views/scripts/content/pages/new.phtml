@@ -15,7 +15,7 @@
 		</div>
 		<div class="col-md-6">
 			<div class="pull-right">
-				<a class="btn btn-info" href="<?php echo $this->url(array('module'=>'admin','controller'=>'content_pages','action'=>'index'),null,true); ?>">All Pages</a>
+				<a class="btn btn-default" href="<?php echo $this->url(array('module'=>'admin','controller'=>'content_pages','action'=>'index'),null,true); ?>">All Pages</a>
 			</div>
 		</div>
 	</div>
@@ -30,11 +30,10 @@
 		));	
 	echo $this->form;
 	?>
-
 	<script>
 	jQuery(document).ready(function($) {
-		var content = '<?php echo html_entity_decode($this->content['page_content'],ENT_QUOTES,$this->charset); ?>';
-		$('.summernote').code(content);
+		<?php $var = html_entity_decode($this->content['page_content'],ENT_QUOTES,$this->charset); ?>
+		$('.summernote').code("<?php echo preg_replace("/\r?\n/", "\\n", addslashes($var)); ?>");
 	});
 	</script>
 </div>

@@ -1,33 +1,58 @@
+/* Guide
+.any-class {
+	position:
+	top, left...:
+	display:
+	fonts,..
+	width, min-height...:
+	margin,
+	padding,
+	border..:
+	text,:
+	background:
+}
+*/
 @import "../variables.less";
 
 /* Reset
-/*-------------------------------------------------*/
-body { padding-top: 70px; }
-footer{ margin-top: 40px; padding-top: 40px; border-top: solid 1px #eee; }
+-------------------------------------------------*/
+body { padding-top: 51px; }
+footer { margin-top: 40px; padding-top: 40px; border-top: solid 1px #eee; }
+aside { padding-left: 0 !important; }
+
+/* Helper */
+.decoration-none { text-decoration: none !important; }
 
 /* Global Styles 
-/*-------------------------------------------------*/
+-------------------------------------------------*/
 /* Form elements */
 select { width: auto !important; }
 label { font-weight: normal; }
 fieldset {}
-fieldset legend{ padding: 10px 15px; background-color: @gray-lighter; border: 1px solid @gray-lighter; border-left: 0; border-right: 0; }
+fieldset legend { padding: 10px 15px; font-size: 16px; color: @legend-color; }
+.form-control { border-radius: 0; -webki-box-shadow: none; box-shadow: none; }
+.form-control:focus { -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075); box-shadow: inset 0 1px 1px rgba(0,0,0,0.075); }
+
+/* Contents */
+.row { margin: 0; }
 
 /* Form General */
 .form-wrapper{}
-.form-wrapper .section{ margin-bottom: 20px; border: solid 1px @gray-lighter; border-radius: 4px;}
+.form-wrapper .section{ margin-top: 20px; border: solid 1px @gray-lighter; background-color: @white; }
 .form-wrapper .errors { color: @state-danger-text; list-style: none; }
+.form-wrapper .hidden-elements { display: none; }
+.form-wrapper .actions-group { margin-top: 20px; }
 
 /* Grouped fields */
 #fieldset-buttons { text-align: center; }
 #fieldset-buttons .form-group { display: inline-block; }
 
 /* Form Singin */
-.form-signin { max-width: 330px; padding: 15px; margin: 0 auto; }
+.form-signin { max-width: 330px; margin: 0 auto; padding: 15px; }
 .form-signin .form-signin-heading,
 .form-signin .checkbox { margin-bottom: 10px; }
 .form-signin .checkbox { font-weight: normal; }
-.form-signin .control-label { text-align: left; font-weight: bold; }
+.form-signin .control-label { margin-bottom: 5px; font-weight: bold; text-align: left; }
 .form-signin .form-control {
   position: relative;
   font-size: 16px;
@@ -42,14 +67,43 @@ fieldset legend{ padding: 10px 15px; background-color: @gray-lighter; border: 1p
 .auth-header-login{ text-align: center; }
 
 /* Form New Page */
-.form-new-page { padding-top: 20px; }
+.form-new-page { }
 
 /* Content Elements
-/*-------------------------------------------------*/
-/* Form elements */
+-------------------------------------------------*/
+/* Tabs */
+.nav-tabs>li>a { border-radius: 0; color: @gray; margin-right: 0; }
+.nav-tabs>li.active>a { background: #fafafa; }
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover { border-color: @gray-lighter; border-bottom-color: transparent; border-radius: 0; -webkit-box-shadow: inset 0 2px 0px rgba(0, 173, 255, 1); box-shadow: inset 0 2px 0px rgba(0, 173, 255, 1); }
+.tab-content { border: solid 1px @gray-lighter; margin-top: -1px; padding: 0 10px; background-color: #fafafa; }
+
+/* Navbar */
+.navbar { padding: 0 15px; font-size: 12px; }
+.navbar-brand { padding: 15px 0; }
+.navbar-form input { border-radius: 20px; border:0; color: @white; background-color: @gray-dark; }
+.navbar-form .btn-link { color: @gray; }
+
+/* Headers */
 .page-header { border-bottom: solid 3px @page-header-border-color; }
 .page-header h1{ margin: 0; }
 
+/* Sidebar */
+.sidebar { min-width: 150px; padding: 0; }
+.sidebar a { color: @gray; }
+.sidebar a:hover { background-color: @navbar-default-link-hover-bg !important; }
+.sidebar a i { margin-right: 10px; }
+
+/* Content */
+.page-content { background-color: @gray-lighter !important; }
+.main { border-left: solid 1px @navbar-default-border; background-color: @body-bg; }
+
 /* Summernote Editor Navigation
-/*-------------------------------------------------*/
+-------------------------------------------------*/
 .dropdown-menu li { cursor: pointer; }
+
+@media (max-width: @screen-xs-max) {
+	aside.col-sm-2 { padding: 0; }
+	.form-wrapper .section { padding: 5px; }
+	.affix { position: static; }
+}

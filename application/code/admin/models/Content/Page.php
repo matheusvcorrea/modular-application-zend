@@ -1,11 +1,25 @@
 <?php
 
-class Admin_Model_Content_Page extends Zend_Db_Table
+class Admin_Model_Content_Page extends Zend_Db_Table_Abstract
 {
+	/**
+     * The default table name
+     */
 	protected $_name = 'content_pages';
+
+    /**
+    * Reference map
+    */
+    protected $_referenceMap = array(
+        array(
+            'refTableClass' => 'Admin_Model_User',
+            'refColumns'    => 'user_id',
+            'columns'       => 'user_id',
+        )
+    );
 	
 	/**
-	 * Função Recursiva que faz um novo array unindo todo o array recursivo gererado pelo Zend Form em novo array nao recursivo
+	 * Recursive function that makes a new array joining all recursive array gererado by Zend Form not in new array recursive
 	 * @return array
 	 */
 	public function mergeValues($data)
@@ -22,7 +36,7 @@ class Admin_Model_Content_Page extends Zend_Db_Table
 	}
 
 	/**
-	 * Função Recursiva que percorre todo o array e remove o que for vazio
+	 * Recursive function that traverses the entire array and remove what is empty
 	 */
 	public function array_remove_empty($data)
 	{
@@ -38,7 +52,6 @@ class Admin_Model_Content_Page extends Zend_Db_Table
 	            unset($data[$key]);
 	        }
 	    }
-
 	    return $data;
 	}
 }

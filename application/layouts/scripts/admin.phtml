@@ -1,10 +1,13 @@
 <?php
 $arr = array(		
-		'description' => 'My Application description meta',
-		'keywords'    => 'framework, PHP, productivity'
-		);
-foreach ($arr as $key => $content) $this->headMeta()->appendName($key, $content);
+	'description' => 'My Application description meta',
+	'keywords'    => 'framework, PHP, productivity'
+);
+foreach ($arr as $key => $content) :
+	$this->headMeta()->appendName($key, $content);
+endforeach;
 ?>
+
 <?php echo $this->doctype(); ?>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -13,58 +16,122 @@ foreach ($arr as $key => $content) $this->headMeta()->appendName($key, $content)
 	<head>
 		<?php echo $this->headTitle('Admin'); ?>
 	    <?php echo $this->headMeta(); ?>
-	    <?php echo $this->headLink()->appendStylesheet($this->baseUrl('css/admin/styles.css')); ?>
-	    <?php echo $this->headScript()->appendFile($this->baseUrl('js/admin/main.js')); ?>
 	    <?php
-echo $this->navigation()->breadcrumbs()?>
+	    	echo $this->headLink()->appendStylesheet($this->baseUrl('css/admin/styles.css'))
+	    			  ->headLink()->appendStylesheet('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css');
+	    ?>
+	    <?php echo $this->headScript()->appendFile($this->baseUrl('js/admin/main.js')); ?>
     </head>
 	<body>
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container">
+		<header>
+			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
 				<div class="navbar-header">
-				    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				      <span class="sr-only">Toggle navigation</span>
-				      <span class="icon-bar"></span>
-				      <span class="icon-bar"></span>
-				      <span class="icon-bar"></span>
-				    </button>
-				    <a class="navbar-brand" href="/">Brand</a>
-			  	</div>
-				<?php
-				/* Navigation Menu Itens */
-				$this->navigation()->menu()->setPartial('partials/horizontal.phtml');
-				echo $this->navigation()->menu()->render(Zend_Registry::get('admin'));
-				?>
-			</div>
-		</nav>
-		<div class="container">
-			<?php echo $this->layout()->content; ?>
-			<!-- Footer Links -->
-			<footer>
-				<div class="row">
-					<div class="col-md-6">
-						<ul class="list-inline pull-left">
-							<li>Extremely Modular Application &copy; 2013</li>
-							<li>
-								<?php
-								$getVersion = Bootstrap::getVersionInfo();
-								echo $getVersion['major'].'.'.$getVersion['minor'].'.'.$getVersion['revision'];
-								?>
-							</li>
-							<li><a href="#">Contact</a></li>
-							<li><a href="#">About</a></li>
-							<li><a href="#">Blog</a></li>
-						</ul>
-					</div>
-      				<div class="col-md-6">
-						<ul class="list-inline pull-right">
-							<li><a href="#">Terms</a></li>
-							<li><a href="#">Privaciy</a></li>
-							<li><a href="#">Sucurity</a></li>
-						</ul>
-					</div>					
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					  	<span class="sr-only">Toggle navigation</span>
+					  	<span class="icon-bar"></span>
+					  	<span class="icon-bar"></span>
+					  	<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">BRAND</a>
 				</div>
-			</footer>
+
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="/" target="_blank">
+								<i class="fa fa-external-link"></i>
+								Customer View
+							</a>
+						</li>
+					</ul>
+
+					<form class="navbar-form navbar-left" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Search">
+						</div>
+						<button type="submit" class="btn btn-link">
+							<i class="fa fa-search"></i>
+						</button>
+					</form>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="#">
+								<i class="fa fa-question-circle fa-lg"></i>
+								Need Hellp?
+							</a>
+						</li>
+					    <li class="dropdown">
+					        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					        	<img class="img-circle" alt="Avatar" src="/img/avatar.jpg" height="21" />
+					        	<?php echo Zend_Auth::getInstance()->getIdentity()->real_name; ?>
+					        	<i class="fa fa-angle-down fa-lg"></i>
+					    	</a>					        
+					        <ul class="dropdown-menu">
+					         	<li><a href="#">Action</a></li>
+					          	<li><a href="#">Another action</a></li>
+					          	<li><a href="#">Something else here</a></li>
+					          	<li class="divider"></li>
+					          	<li><a href="#">Separated link</a></li>
+					        </ul>
+					    </li>
+					</ul>
+			  	</div>
+			</nav>
+		</header>			
+		
+		<div class="page-container">
+			<div class="row page-content">
+				<aside class="col-sm-2">
+					<div class="col-sm-2 affix sidebar" role="complementary">
+					<?php
+						/* Navigation Menu Itens */
+						$this->navigation()->menu()->setPartial('partials/nav-left.phtml');
+						echo $this->navigation()->menu()->render(Zend_Registry::get('admin'));
+					?>
+					</div>
+				</aside>
+
+				<div class="col-sm-10 main" role="main">
+					<div class="row breadcrumbs">
+						<?php 
+						echo $this->navigation()->breadcrumbs();
+						?>						
+					</div>
+
+				    <section>
+						<?php echo $this->layout()->content; ?>
+					</section>
+
+					<!-- Footer Links -->
+					<footer class="bs-footer" role="contentinfo">
+						<div class="row">
+							<div class="col-sm-6">
+								<ul class="list-inline pull-left">
+									<li>Extremely Modular Application &copy; 2013</li>
+									<li>
+										<?php
+										$getVersion = Bootstrap::getVersionInfo();
+										echo $getVersion['major'].'.'.$getVersion['minor'].'.'.$getVersion['revision'];
+										?>
+									</li>
+									<li><a href="#">Contact</a></li>
+									<li><a href="#">About</a></li>
+									<li><a href="#">Blog</a></li>
+								</ul>
+							</div>
+		      				<div class="col-sm-6">
+								<ul class="list-inline pull-right">
+									<li><a href="#">Terms</a></li>
+									<li><a href="#">Privaciy</a></li>
+									<li><a href="#">Sucurity</a></li>
+								</ul>
+							</div>					
+						</div>
+					</footer>
+			  </div> <!--col-sm-10-->
+			</div> <!--row-->			
 		</div>
-	</body>
+	</body>	
 </html>

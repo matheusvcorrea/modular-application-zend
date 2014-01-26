@@ -12,9 +12,20 @@ class Admin_Form_Content_Pages_New extends Zend_Form
             array('Description', array('tag' => 'div', 'placement' => 'prepend', 'class' => 'alert alert-danger')),
             'Form'
         ));
+
+        $hidden = new Zend_Form_SubForm;
+        $hidden->setDecorators(array(
+            'FormElements',
+            array('HtmlTag', array('tag' => 'div','class'=>'hidden-elements')),
+        ));
+        
+        $hidden->addElement('hidden', 'user_id', array(
+            'value'    => Zend_Auth::getInstance()->getIdentity()->user_id,
+            'required' => true,
+        ));
         
         /*
-         *
+         * General options SubForm
          */
         $general = new Zend_Form_SubForm;
         $general->setDecorators(array(
@@ -25,7 +36,7 @@ class Admin_Form_Content_Pages_New extends Zend_Form
         $general->setElementDecorators(array(
             'ViewHelper', array(
                 array('data' => 'HtmlTag'),
-                array('tag'  => 'div', 'class' => 'col-xs-6')
+                array('tag'  => 'div', 'class' => 'col-sm-5')
             ),
             'Errors',
             array(
@@ -36,24 +47,31 @@ class Admin_Form_Content_Pages_New extends Zend_Form
                 array('row' => 'HtmlTag'),
                 array('tag' => 'div', 'class' => 'form-group')
             ),
-        ));        
+        ));
         $general->addElement('text', 'page_name', array(
             'label'       => 'Name:',
             'class'       => 'form-control',
             'placeholder' => 'Name of the new Page',
             'required'    => true
         ));
-        $general->addElement('text', 'page_url', array(
+        $general->addElement('text', 'url_key', array(
             'label'       => 'Url key:',
             'class'       => 'form-control',
             'placeholder' => 'Your Url key',
-            'required'    => true,
+            'required' => true,
+            'validators'  => array(
+                array('Db_NoRecordExists', false, array(
+                    'table'    => 'content_pages', 
+                    'field'    => 'url_key',
+                    'messages' => array('recordFound' => 'URL is key already exists')
+                ))
+            )
         ));
         $general->addDisplayGroup(array(
             'page_name',
-            'page_url',
+            'url_key',
         ),'general', array('legend' => 'General'));
-        $general->getDisplayGroup('general')->setDecorators(array(        
+        $general->getDisplayGroup('general')->setDecorators(array(
             'FormElements',
             'Fieldset',
             array('HtmlTag',array('tag'=>'div','class'=>'section'))
@@ -78,7 +96,7 @@ class Admin_Form_Content_Pages_New extends Zend_Form
                 array('Errors'),
                 array(
                     'data'  =>'HtmlTag',
-                    array('class' => 'col-xs-9')
+                    array('class' => 'col-sm-9')
                 ),
                 array(
                     'Label',
@@ -101,7 +119,7 @@ class Admin_Form_Content_Pages_New extends Zend_Form
         ));
 
         /*
-         *
+         * Custom Options SubForm
          */
         $options = new Zend_Form_SubForm;
         $options->setDecorators(array(
@@ -128,7 +146,7 @@ class Admin_Form_Content_Pages_New extends Zend_Form
         $options->setElementDecorators(array(
             'ViewHelper', array(
                 array('data' => 'HtmlTag'),
-                array('tag'  => 'div', 'class' => 'col-xs-6')
+                array('tag'  => 'div', 'class' => 'col-sm-5')
             ),
             array(
                 'Label',
@@ -141,7 +159,7 @@ class Admin_Form_Content_Pages_New extends Zend_Form
         ));
 
         /*
-         *
+         * Group for all Actions form
          */
         $actions = new Zend_Form_SubForm();
         $actions->setDecorators(array(
@@ -150,7 +168,7 @@ class Admin_Form_Content_Pages_New extends Zend_Form
         ));
 
         /*
-         *
+         * Group Bunttons save, ceancel
          */
         $buttons = new Zend_Form_SubForm();
         $buttons->addElement('submit', 'save', array(
@@ -186,7 +204,7 @@ class Admin_Form_Content_Pages_New extends Zend_Form
         $buttons->setElementDecorators(array(
             'ViewHelper', array(
                 array('data' => 'HtmlTag'),
-                array('tag'  => 'div', 'class' => 'col-xs-6')
+                array('tag'  => 'div', 'class' => 'col-sm-5')
             ),
             array(
                 array('row' => 'HtmlTag'),
@@ -199,7 +217,8 @@ class Admin_Form_Content_Pages_New extends Zend_Form
         $this->setSubForms(array(
             'general' => $general,
             'options' => $options,
-            'actions' => $actions
+            'actions' => $actions,
+            'hidden'  => $hidden
         ));
     }
 }

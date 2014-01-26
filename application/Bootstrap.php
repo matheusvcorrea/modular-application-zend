@@ -9,25 +9,25 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$layout = $this->getResource('layout');
 		$view   = $layout->getView();
 		
-		//Doctype
+		// Doctype
 		$view->doctype('HTML5');
 		$view->setEncoding('UTF-8');
 		
-		//Tag Tittle
+		// Tag Tittle
 		$view->headTitle('Extremely Modular');
 		$view->headTitle()->setSeparator(' / ');
 
-		//Favicon
+		// Favicon
 		$view->headLink(array(
 	        'rel'  => 'favicon',
 	        'type' => 'image/ico',
 	        'href' => $view->baseUrl('favicon.ico')
 	    ));
 		
-		//Add Stylesheets
+		// Add Stylesheets
 		$view->headLink()->setStylesheet('/css/bootstrap.min.css');
 
-		//Add Scripts
+		// Add Scripts
 		$view->headScript()->prependFile('//code.jquery.com/jquery-1.10.2.min.js');
 		$view->headScript()->appendFile('/js/bootstrap.min.js');
 		$view->headScript()->appendFile('/js/modernizr.min.js');
@@ -40,40 +40,43 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 			$layoutFile = 'layout';
 		}
 
-		//Add Layouts
+		// Add Layouts
 	    Zend_Layout::startMvc(array(
 			'layout'     => $layoutFile,
 			'layoutPath' => APPLICATION_PATH . '/layouts/scripts/',
 		));
     }
 
- 	/*
- 	protected function _initHelpers()
-	{
-		$this->bootstrap('view');
-	    $view = $this->getResource('view');
-	    $view->addHelperPath(APPLICATION_PATH . '/views/helpers/', 'Zend_View_Helper');
-	}
-	*/
-
 	protected function _initNavigation()
 	{
-		//Init Anonymous Menu
+		// Init Anonymous Menu
 		$navConfig    = new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav');
 		$navContainer = new Zend_Navigation($navConfig);
 		Zend_Registry::set('main',$navContainer);
 
-		//Init Admin Menu
+		/* Dynamic Manu - Menu From Database
+		$dbAdapter = Zend_Db_Table::getDefaultAdapter();
+    	$dbAdapter->setFetchMode(Zend_Db::FETCH_ASSOC);
+    	$menuArray = $dbAdapter->fetchAll("SELECT * FROM menu");
+		$navContainer = new Zend_Navigation();
+	    foreach ( $menuArray as $item )
+	    {
+	        $navContainer->addPage(
+	            Zend_Navigation_Page::factory(array(
+	                'uri' => 'url',
+	                'label' => 'Label',
+	                'title' => 'title',
+	                'class' => 'class',
+	            ))
+	        );
+	    }
+	    Zend_Registry::set('main', $navContainer);
+	    */
+
+		// Init Admin Menu
 		$adminConfig    = new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'admin');
 		$adminContainer = new Zend_Navigation($adminConfig);
 		Zend_Registry::set('admin',$adminContainer);
-	}
-
-	protected function _initPlugins()
-	{
-		//Init Plugins
-		$front = Zend_Controller_Front::getInstance();
-		$front->registerPlugin(new Application_Plugin_EndSession());
 	}
 
 	protected function _initRoutes()
@@ -85,10 +88,25 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 			'login', array(
 				'module'     => 'admin',
 				'controller' => 'auth',
-				'action'     => 'index'
+				'action'     => 'index',
+			)
+		));
+
+		$router->addRoute('page', new Zend_Controller_Router_Route(
+			':url_key/', array(
+				'module'     => 'content',
+				'controller' => 'page',
+				'action'     => 'view'
 			)
 		));
     }
+    
+	protected function _initPlugins()
+	{
+		// Init Plugins
+		$front = Zend_Controller_Front::getInstance();
+		$front->registerPlugin(new Application_Plugin_EndSession());
+	}	
 
     public static function getVersionInfo()
     {

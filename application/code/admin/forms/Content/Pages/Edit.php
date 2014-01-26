@@ -8,24 +8,38 @@ class Admin_Form_Content_Pages_Edit extends Admin_Form_Content_Pages_New
         $general = $this->general;
         $options = $this->options;
         $actions = $this->actions;
-
-        /* Exemple to Add new Element
-        $general->addElement('text', 'page_name_name', array(
-            'label'       => 'Name:',
-            'class'       => 'form-control',
-            'placeholder' => 'Name of the new Page',
-            'required'    => true
-        ));
-
-        $general->addDisplayGroup(array(
-            'page_name',
-            'page_url',
-            'page_name_name'
-        ),'general', array('legend' => 'General'));
-        */
+        // $hidden  = $this->hidden; 
 
         /* Reescrever os Botons para o novo Form Edit
          *
+         */
+        $general->removeElement('url_key');
+        $general->addElement('text', 'url_key', array(
+            'label'       => 'Url key:',
+            'class'       => 'form-control',
+            'placeholder' => 'Your Url key',
+            'required' => true,
+            'validators'  => array(
+                array('Db_NoRecordExists', false, array(
+                    'table'    => 'content_pages', 
+                    'field'    => 'url_key',
+                    'exclude'  => array('field' => 'id', 'value' => Zend_Controller_Front::getInstance()->getRequest()->getParam('id', null)),
+                    'messages' => array('recordFound' => 'URL is key already exists')
+                ))
+            )
+        ));
+        $general->addDisplayGroup(array(
+            'page_name',
+            'url_key',
+        ),'general', array('legend' => 'General'));
+        $general->getDisplayGroup('general')->setDecorators(array(        
+            'FormElements',
+            'Fieldset',
+            array('HtmlTag',array('tag'=>'div','class'=>'section'))
+        ));
+
+        /* Rewrite Buttons
+         * 
          */
         $buttons = new Zend_Form_SubForm();
         $buttons->addElement('submit', 'save', array(
@@ -49,7 +63,7 @@ class Admin_Form_Content_Pages_Edit extends Admin_Form_Content_Pages_New
                 'cancel',
                 'delete'
             ),'buttons',
-            array('decorators'=>array(
+            array('decorators' => array(
                 'FormElements',
                 array('HtmlTag', array('tag'=>'div','class'=>'buttons')), 
                 'DtDdWrapper',                   
@@ -80,7 +94,8 @@ class Admin_Form_Content_Pages_Edit extends Admin_Form_Content_Pages_New
         $this->setSubForms(array(
             'general' => $general,
             'options' => $options,
-            'actions' => $actions
+            'actions' => $actions,
+            // 'hidden'  => $hidden
         ));
     }
 }

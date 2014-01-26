@@ -21,7 +21,8 @@
 		</div>
 	</div>
 </div>
-
+<span><strong>Add By</strong>: <?php echo $this->user->real_name; ?> in <em><?php echo new Zend_Date($this->content->page_created, null, 'pt_Br'); ?></em></span><br>
+<span><strong>Last Update By</strong>: <?php echo $this->user->real_name; ?> in <em><?php echo new Zend_Date($this->content->page_update, null, 'pt_Br'); ?></em></span>
 <h3><?php echo $this->content->page_name; ?></h3>
 <?php
 echo html_entity_decode($this->content->page_content,ENT_QUOTES,$this->charset);

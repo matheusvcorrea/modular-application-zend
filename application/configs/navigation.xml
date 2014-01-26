@@ -3,21 +3,21 @@
     <admin>
     	<dashboard>
 			<label>Dashboard</label>
-			<uri>/</uri>
+			<uri>dashboard</uri>
 			<module>admin</module>
             <controller>dashboard</controller>
             <action>index</action>
-			<!-- <img>logo.png</img> -->
+			<icon>fa fa-dashboard fa-lg</icon>
 		</dashboard>
 		<content>
 			<label>Content</label>
 			<uri></uri>
-			<!-- <img>logo.png</img> -->
+			<icon>fa fa-th-list fa-lg</icon>
 			<pages>
 				<tittle>
 					<label>Elements</label>
 					<header>dropdown-header</header>
-					<uri></uri>
+					<uri>#</uri>
 				</tittle>
 				<pages_list>
 					<label>Pages</label>
@@ -34,17 +34,80 @@
 				</pages_add>
 			</pages>
 		</content>
+		<aparence>
+			<label>Aparence</label>
+			<uri></uri>
+			<icon>fa fa-desktop fa-lg</icon>
+			<pages>
+				<title>
+					<label>Options</label>
+					<header>dropdown-header</header>
+					<uri></uri>
+				</title>
+				<theme_options>
+					<label>Theme Options</label>
+					<uri></uri>
+				</theme_options>
+				<theme_menu>
+					<label>Menu</label>
+					<uri></uri>
+				</theme_menu>
+				<theme_background>
+					<label>Background</label>
+					<uri></uri>
+					<divider>divider</divider>					
+				</theme_background>
+				<themes>
+					<label>Themes</label>
+					<uri></uri>
+				</themes>
+			</pages>
+		</aparence>
+		<marketing>
+			<label>Marketing</label>
+			<uri></uri>
+			<icon>fa fa-bullhorn fa-lg</icon>
+		</marketing>
+		<plugin>
+			<label>Plugins</label>
+			<uri></uri>
+			<icon>fa fa-download fa-lg</icon>
+		</plugin>
+		<users>
+			<label>Users</label>
+			<uri></uri>
+			<icon>fa fa-users fa-lg</icon>
+			<pages>
+				<users_list>
+					<label>All Users</label>
+					<uri></uri>
+				</users_list>
+				<users_add>
+					<label>Add Users</label>
+					<uri></uri>
+				</users_add>
+			</pages>
+		</users>
 		<logout>
 			<label>Logout</label>
 			<module>admin</module>
 			<controller>auth</controller>
 			<action>logout</action>
+			<icon>fa fa-power-off fa-lg</icon>
 		</logout>
 	</admin>
+
 	<nav>
 		<dashboard>
 			<label>Dashboard</label>
-			<uri>/</uri>
+			<module>admin</module>
+            <controller>dashboard</controller>
+            <action>index</action>
+            <!--
+            you need to set the route
+            name on all navigation pages
+            -->
+            <route>default</route>
 		</dashboard>
 	</nav>
 </config>
